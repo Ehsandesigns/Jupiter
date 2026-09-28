@@ -132,7 +132,6 @@
       font-weight: 300; line-height: 1.9; max-width: 36ch;
     }
 
-    /* ---------- کارت بررسی کد ---------- */
     .discount-section {
       width: 100%; max-width: 720px;
       margin: 26px auto 0;
@@ -629,8 +628,8 @@
         <div class="field">
           <label for="verCode">کد تخفیف</label>
           <input id="verCode" name="code" type="text" required
-                 class="code-input" placeholder="XXXX-XXXX-XXX"
-                 maxlength="24" autocapitalize="characters" spellcheck="false">
+                 class="code-input" placeholder="XXXX-XXX"
+                 maxlength="20" autocapitalize="characters" spellcheck="false">
         </div>
         <button type="submit" class="form-submit" id="verifySubmit">
           <i class="fa-solid fa-circle-check"></i>
@@ -778,7 +777,11 @@
       rubika: "",
       bale: "",
       eitaa: "",
+
+      /* ⬇️⬇️⬇️ این خط رو با URL کپی‌شده از Apps Script جایگزین کن ⬇️⬇️⬇️ */
       discountBackendUrl: "https://script.google.com/macros/s/AKfycbx_IuyTZfqF9OaC4RewRiteN6DODeMCVngfS2Wm1clYVuhC8iYps1eWqK45gmA6rtt1SQ/exec",
+      /* ⬆️⬆️⬆️ دکمهٔ Copy رو از پنجرهٔ Deploy بزن، دستی تایپ نکن ⬆️⬆️⬆️ */
+
       discountDays: 90
     };
 
