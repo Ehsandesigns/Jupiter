@@ -45,27 +45,19 @@
     img { max-width: 100%; height: auto; }
     button:focus-visible, a:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 
-    /* ---------- پس‌زمینهٔ پایدار (بدون blur و بدون canvas) ---------- */
     .universe {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
+      position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
       background:
         radial-gradient(ellipse at 50% 105%, rgba(103, 56, 166, .22), transparent 60%),
         linear-gradient(160deg, #080712 0%, #101023 50%, #080b17 100%);
     }
     .universe::after {
-      content: "";
-      position: absolute;
-      inset: 0;
+      content: ""; position: absolute; inset: 0;
       background: radial-gradient(circle at center, transparent 30%, #05050d 100%);
       opacity: .5;
     }
     .aurora {
-      position: absolute;
-      border-radius: 50%;
+      position: absolute; border-radius: 50%;
       will-change: transform;
       animation: floatGlow 34s ease-in-out infinite alternate;
       transform: translate3d(0, 0, 0);
@@ -94,16 +86,11 @@
       to   { transform: translate3d(4%, -3.5%, 0) scale(1.08); }
     }
 
-    /* ---------- چیدمان ---------- */
     .page {
-      width: 100%;
-      max-width: 920px;
-      margin: 0 auto;
+      width: 100%; max-width: 920px; margin: 0 auto;
       padding: 0 20px;
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
+      min-height: 100vh; min-height: 100svh;
+      display: flex; flex-direction: column;
     }
     .topbar {
       display: flex; align-items: center; justify-content: space-between;
@@ -145,7 +132,7 @@
       font-weight: 300; line-height: 1.9; max-width: 36ch;
     }
 
-    /* ---------- کارت تخفیف ---------- */
+    /* ---------- کارت بررسی کد ---------- */
     .discount-section {
       width: 100%; max-width: 720px;
       margin: 26px auto 0;
@@ -153,18 +140,18 @@
     .discount-card {
       position: relative;
       padding: 20px;
-      border: 1px solid rgba(155, 104, 255, .38);
+      border: 1px solid rgba(121, 255, 196, .38);
       border-radius: 22px;
       background:
-        radial-gradient(circle at 12% 18%, rgba(155, 104, 255, .20), transparent 55%),
-        radial-gradient(circle at 92% 82%, rgba(121, 255, 196, .14), transparent 55%),
+        radial-gradient(circle at 12% 18%, rgba(121, 255, 196, .16), transparent 55%),
+        radial-gradient(circle at 92% 82%, rgba(155, 104, 255, .14), transparent 55%),
         rgba(23, 20, 42, .78);
       overflow: hidden;
     }
     .discount-card::before {
       content: "";
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255, 220, 129, .07), transparent 42%);
+      background: linear-gradient(135deg, rgba(255, 220, 129, .06), transparent 42%);
       pointer-events: none;
     }
     .discount-head {
@@ -176,7 +163,7 @@
       width: 46px; height: 46px; flex: 0 0 46px;
       display: grid; place-items: center;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(155,104,255,.4), rgba(255,145,76,.28));
+      background: linear-gradient(135deg, rgba(121,255,196,.32), rgba(155,104,255,.22));
       border: 1px solid rgba(255,255,255,.18);
       color: #fff; font-size: 20px;
     }
@@ -185,42 +172,24 @@
       margin: 4px 0 0; color: var(--muted);
       font-size: 11.5px; line-height: 1.75;
     }
-    .discount-buttons {
+    .discount-btn-full {
       position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-    }
-    .discount-btn {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 14px 12px;
-      border: 1px solid var(--stroke);
+      width: 100%;
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 15px 14px;
+      border: 1px solid rgba(121,255,196,.5);
       border-radius: 14px;
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-size: 12.5px; font-weight: 600;
-      text-align: center;
+      background: rgba(121,255,196,.12);
+      color: #d7ffe9;
+      font-size: 13px; font-weight: 700;
       transition: border-color .2s, background .2s, transform .2s;
     }
-    .discount-btn i { font-size: 15px; }
-    .discount-btn.primary {
-      border-color: rgba(155,104,255,.55);
-      background: rgba(155,104,255,.18);
-      color: #eae0ff;
-    }
-    .discount-btn.primary:hover {
-      background: rgba(155,104,255,.28);
-      border-color: rgba(155,104,255,.8);
-    }
-    .discount-btn.secondary {
-      border-color: rgba(121,255,196,.45);
-      background: rgba(121,255,196,.10);
-      color: #d7ffe9;
-    }
-    .discount-btn.secondary:hover {
-      background: rgba(121,255,196,.2);
-      border-color: rgba(121,255,196,.7);
+    .discount-btn-full i { font-size: 16px; }
+    .discount-btn-full:hover {
+      background: rgba(121,255,196,.22);
+      border-color: rgba(121,255,196,.8);
     }
 
-    /* ---------- دکمه‌های اصلی ---------- */
     .actions {
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 11px; width: 100%; max-width: 720px;
@@ -269,7 +238,6 @@
     }
     .designer-highlight { color: var(--orange); font-weight: 800; direction: ltr; }
 
-    /* ---------- مودال‌ها ---------- */
     dialog.modal {
       width: min(540px, calc(100% - 20px));
       max-width: calc(100% - 20px);
@@ -308,7 +276,6 @@
       font-size: 12.5px; line-height: 2;
     }
 
-    /* ---------- فرم تخفیف ---------- */
     .field { margin-bottom: 12px; }
     .field label {
       display: block; margin-bottom: 6px;
@@ -345,22 +312,16 @@
       width: 100%;
       padding: 14px;
       margin-top: 6px;
-      border: 1px solid rgba(155,104,255,.55);
+      border: 1px solid rgba(121,255,196,.5);
       border-radius: 13px;
-      background: linear-gradient(135deg, rgba(155,104,255,.32), rgba(155,104,255,.18));
-      color: #fff;
+      background: linear-gradient(135deg, rgba(121,255,196,.28), rgba(121,255,196,.14));
+      color: #e6fff1;
       font-size: 13.5px; font-weight: 700;
       transition: transform .2s, border-color .2s;
     }
-    .form-submit:hover { transform: translateY(-1px); border-color: rgba(155,104,255,.85); }
+    .form-submit:hover { transform: translateY(-1px); border-color: rgba(121,255,196,.85); }
     .form-submit:disabled { opacity: .6; cursor: wait; transform: none; }
-    .form-submit.verify {
-      border-color: rgba(121,255,196,.5);
-      background: linear-gradient(135deg, rgba(121,255,196,.28), rgba(121,255,196,.14));
-      color: #e6fff1;
-    }
 
-    /* ---------- نمایش نتیجه ---------- */
     .result-box {
       margin-top: 16px;
       padding: 18px;
@@ -430,19 +391,6 @@
       word-break: break-all;
       line-height: 1.3;
     }
-    .copy-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 10px;
-      padding: 8px 14px;
-      border: 1px solid var(--stroke); border-radius: 999px;
-      background: rgba(255,255,255,.07); color: var(--text);
-      font-size: 11.5px;
-      transition: border-color .2s, background .2s;
-    }
-    .copy-btn:hover {
-      border-color: rgba(121,255,196,.5);
-      background: rgba(121,255,196,.1);
-    }
 
     .info-row {
       display: flex; justify-content: space-between; gap: 10px;
@@ -455,7 +403,6 @@
     .info-row .v { color: var(--text); font-weight: 600; direction: rtl; }
     .info-row .v.ltr { direction: ltr; font-family: ui-monospace, monospace; }
 
-    /* ---------- لیست‌ها ---------- */
     .link-list { display: grid; gap: 9px; }
     .list-link {
       width: 100%; display: flex; align-items: center; gap: 13px;
@@ -535,7 +482,6 @@
     }
     .toast[hidden] { display: none; }
 
-    /* ---------- ریسپانسیو ---------- */
     @media (max-width: 720px) {
       .page { padding: 0 16px; }
       .topbar { padding: 20px 2px 4px; }
@@ -543,7 +489,6 @@
       .discount-card { padding: 17px; }
       .discount-icon { width: 42px; height: 42px; flex-basis: 42px; font-size: 18px; }
       .discount-title { font-size: 14px; }
-      .discount-btn { padding: 13px 10px; font-size: 11.5px; }
       .actions {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 9px; margin: 20px auto 32px;
@@ -561,9 +506,6 @@
     }
     @media (max-width: 420px) {
       .page { padding: 0 12px; }
-      .discount-buttons { gap: 8px; }
-      .discount-btn { padding: 12px 8px; font-size: 11px; gap: 6px; }
-      .discount-btn i { font-size: 14px; }
       .actions { gap: 8px; }
       .action { padding: 10px 10px; gap: 8px; min-height: 62px; }
       .action span { font-size: 11px; }
@@ -571,7 +513,6 @@
       .action i { font-size: 15px; width: 16px; }
     }
     @media (max-width: 340px) {
-      .discount-buttons { grid-template-columns: 1fr; }
       .action { padding: 9px 8px; gap: 7px; }
       .action span { font-size: 10px; }
       .action small { font-size: 8.5px; }
@@ -620,26 +561,20 @@
         <p class="subtitle">پوشاکی برای متفاوت بودن، در هر مدار.</p>
       </section>
 
-      <!-- ================= باشگاه مشتریان / تخفیف ================= -->
-      <section class="discount-section" aria-label="باشگاه مشتریان و کد تخفیف">
+      <!-- ================= بررسی کد تخفیف ================= -->
+      <section class="discount-section" aria-label="بررسی کد تخفیف">
         <div class="discount-card">
           <div class="discount-head">
-            <div class="discount-icon"><i class="fa-solid fa-gift" aria-hidden="true"></i></div>
+            <div class="discount-icon"><i class="fa-solid fa-ticket" aria-hidden="true"></i></div>
             <div>
-              <h3 class="discount-title">باشگاه مشتریان</h3>
-              <p class="discount-desc">با ثبت‌نام، کد تخفیف ۹۰ روزه دریافت کنید</p>
+              <h3 class="discount-title">کد تخفیف دارید؟</h3>
+              <p class="discount-desc">کدت رو اینجا بررسی کن و برای فروشنده بفرست</p>
             </div>
           </div>
-          <div class="discount-buttons">
-            <button class="discount-btn primary" type="button" data-open="registerModal">
-              <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
-              <span>دریافت کد تخفیف</span>
-            </button>
-            <button class="discount-btn secondary" type="button" data-open="verifyModal">
-              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-              <span>بررسی کد تخفیف</span>
-            </button>
-          </div>
+          <button class="discount-btn-full" type="button" data-open="verifyModal">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <span>بررسی کد تخفیف</span>
+          </button>
         </div>
       </section>
 
@@ -678,56 +613,7 @@
     </footer>
   </div>
 
-  <!-- ============ مودال ثبت‌نام / دریافت کد ============ -->
-  <dialog class="modal" id="registerModal" aria-labelledby="registerTitle">
-    <div class="modal-head">
-      <h2 id="registerTitle">🎁 دریافت کد تخفیف ۹۰ روزه</h2>
-      <button class="close-btn" type="button" data-close aria-label="بستن">×</button>
-    </div>
-    <div class="modal-body">
-      <p class="modal-intro">
-        نام و شماره‌تون رو وارد کنید تا کد اختصاصی تخفیف دریافت کنید.
-        این کد تا ۹۰ روز برای شما معتبره و فقط یک‌بار قابل استفاده‌ست.
-      </p>
-
-      <form id="registerForm" autocomplete="on">
-        <div class="field">
-          <label for="regName">نام و نام خانوادگی</label>
-          <input id="regName" name="name" type="text" required
-                 minlength="2" maxlength="60" placeholder="مثلاً: علی محمدی">
-        </div>
-        <div class="field">
-          <label for="regPhone">شماره موبایل</label>
-          <input id="regPhone" name="phone" type="tel" required
-                 inputmode="numeric" pattern="[0-9+\s\-]{7,15}"
-                 placeholder="۰۹۱۲۳۴۵۶۷۸۹">
-        </div>
-        <button type="submit" class="form-submit" id="registerSubmit">
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-          دریافت کد تخفیف
-        </button>
-      </form>
-
-      <div class="result-box success" id="registerResult" hidden>
-        <div class="result-icon">✓</div>
-        <h4 class="result-title">کد تخفیف شما صادر شد</h4>
-        <p class="result-text">این کد رو یه جا ذخیره کنید (اسکرین‌شات یا کپی).</p>
-
-        <div class="code-display">
-          <div class="code-label">کد اختصاصی شما</div>
-          <div class="code-value" id="regCodeValue">—</div>
-          <button type="button" class="copy-btn" id="regCopyBtn">
-            <i class="fa-regular fa-copy"></i> کپی کد
-          </button>
-        </div>
-
-        <div class="info-row"><span class="k">اعتبار تا</span><span class="v" id="regExpires">—</span></div>
-        <div class="info-row"><span class="k">مدت اعتبار</span><span class="v">۹۰ روز از تاریخ صدور</span></div>
-      </div>
-    </div>
-  </dialog>
-
-  <!-- ============ مودال بررسی کد ============ -->
+  <!-- ============ بررسی کد ============ -->
   <dialog class="modal" id="verifyModal" aria-labelledby="verifyTitle">
     <div class="modal-head">
       <h2 id="verifyTitle">✅ بررسی کد تخفیف</h2>
@@ -743,10 +629,10 @@
         <div class="field">
           <label for="verCode">کد تخفیف</label>
           <input id="verCode" name="code" type="text" required
-                 class="code-input" placeholder="GIFT-XXXX-XXXX"
-                 maxlength="20" autocapitalize="characters" spellcheck="false">
+                 class="code-input" placeholder="XXXX-XXXX-XXX"
+                 maxlength="24" autocapitalize="characters" spellcheck="false">
         </div>
-        <button type="submit" class="form-submit verify" id="verifySubmit">
+        <button type="submit" class="form-submit" id="verifySubmit">
           <i class="fa-solid fa-circle-check"></i>
           بررسی اعتبار کد
         </button>
@@ -884,9 +770,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
   <script>
-    /* ================================================================
-       ۱) تنظیمات برند
-       ================================================================ */
     const SETTINGS = {
       brandName: "نام برند شما",
       phone: "09300613390",
@@ -895,17 +778,7 @@
       rubika: "",
       bale: "",
       eitaa: "",
-
-      /* --------------------------------------------------------------
-         آدرس Google Apps Script (Web App) را اینجا بگذار.
-         اگر خالی باشد، سیستم تخفیف در حالت «دمو» روی همین مرورگر
-         با localStorage کار می‌کند (برای تست سریع).
-
-         راهنمای ساخت: در انتهای همین فایل، بخش «راهنمای راه‌اندازی»
-         در متن پاسخ توضیح داده شده.
-         -------------------------------------------------------------- */
       discountBackendUrl: "https://script.google.com/macros/s/AKfycbx_IuyTZfqF9OaC4RewRiteN6DODeMCVngfS2Wm1clYVuhC8iYps1eWqK45gmA6rtt1SQ/exec",
-      /* مدت اعتبار کد تخفیف (روز) */
       discountDays: 90
     };
 
@@ -914,11 +787,7 @@
     });
     document.title = `${SETTINGS.brandName} | کارت ویزیت دیجیتال`;
 
-    const useLocalDemo = !SETTINGS.discountBackendUrl;
-
-    /* ================================================================
-       ۲) ستاره‌های ثابت (بدون canvas و بدون انیمیشن)
-       ================================================================ */
+    /* ---------- ستاره‌ها ---------- */
     (function buildStars() {
       const starsEl = document.getElementById("stars");
       if (!starsEl) return;
@@ -930,16 +799,13 @@
         const s = (0.5 + Math.random() * 1.3).toFixed(2);
         const a = (0.28 + Math.random() * 0.5).toFixed(2);
         const tint = Math.random() > 0.88
-          ? `rgba(167,255,216,${a})`
-          : `rgba(239,230,255,${a})`;
+          ? `rgba(167,255,216,${a})` : `rgba(239,230,255,${a})`;
         layers[i] = `radial-gradient(${s}px ${s}px at ${x}% ${y}%, ${tint} 50%, transparent 100%)`;
       }
       starsEl.style.backgroundImage = layers.join(",");
     })();
 
-    /* ================================================================
-       ۳) Toast
-       ================================================================ */
+    /* ---------- Toast ---------- */
     const toast = document.getElementById("toast");
     let toastTimer;
     function notify(message) {
@@ -949,9 +815,7 @@
       toastTimer = setTimeout(() => { toast.hidden = true; }, 3400);
     }
 
-    /* ================================================================
-       ۴) مودال‌ها
-       ================================================================ */
+    /* ---------- مودال‌ها ---------- */
     function selectMap(name) {
       document.querySelectorAll(".map-tab").forEach(tab => {
         const selected = tab.dataset.map === name;
@@ -964,7 +828,6 @@
       const frame = document.querySelector(`#panel-${name} iframe[data-src]`);
       if (frame && !frame.src) frame.src = frame.dataset.src;
     }
-
     document.querySelectorAll("[data-open]").forEach(button => {
       button.addEventListener("click", () => {
         if (button.dataset.open === "mapModal") selectMap("google");
@@ -987,19 +850,15 @@
       button.addEventListener("click", () => selectMap(button.dataset.map));
     });
 
-    /* ================================================================
-       ۵) پیام‌رسان‌ها
-       ================================================================ */
+    /* ---------- پیام‌رسان‌ها ---------- */
     const whatsappNumber = "98" + SETTINGS.phone.replace(/\D/g, "").replace(/^0/, "");
     const whatsappUrl = text =>
       `https://wa.me/${whatsappNumber}${text ? "?text=" + encodeURIComponent(text) : ""}`;
-
     function openExternal(url) { window.open(url, "_blank", "noopener,noreferrer"); }
     const channelNames = {
       instagram: "اینستاگرام", telegram: "تلگرام", rubika: "روبیکا",
       bale: "بله", eitaa: "ایتا"
     };
-
     document.querySelectorAll("[data-social]").forEach(button => {
       button.addEventListener("click", () => {
         const channel = button.dataset.social;
@@ -1009,7 +868,6 @@
         openExternal(url);
       });
     });
-
     document.querySelectorAll("[data-quick]").forEach(button => {
       button.addEventListener("click", async () => {
         const channel = button.dataset.quick;
@@ -1026,20 +884,15 @@
       });
     });
 
-    /* ================================================================
-       ۶) VCF
-       ================================================================ */
+    /* ---------- VCF ---------- */
     function vcfEscape(value) {
       return String(value)
-        .replace(/\\/g, "\\\\")
-        .replace(/\n/g, "\\n")
-        .replace(/;/g, "\\;")
-        .replace(/,/g, "\\,");
+        .replace(/\\/g, "\\\\").replace(/\n/g, "\\n")
+        .replace(/;/g, "\\;").replace(/,/g, "\\,");
     }
     document.getElementById("saveContact").addEventListener("click", () => {
       const vcf = [
-        "BEGIN:VCARD",
-        "VERSION:3.0",
+        "BEGIN:VCARD", "VERSION:3.0",
         `FN:${vcfEscape(SETTINGS.brandName)}`,
         `ORG:${vcfEscape(SETTINGS.brandName)}`,
         `TEL;TYPE=CELL:+${whatsappNumber}`,
@@ -1047,7 +900,6 @@
         `ADR;TYPE=WORK:;;${vcfEscape("شعبه ۲: پاساژ عطر زستان، بلوک B، طبقه همکف، پلاک ۲۲۷")};;;;`,
         "END:VCARD"
       ].join("\r\n");
-
       const url = URL.createObjectURL(new Blob([vcf], { type: "text/vcard;charset=utf-8" }));
       const link = document.createElement("a");
       link.href = url;
@@ -1058,9 +910,7 @@
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
 
-    /* ================================================================
-       ۷) نمونه‌کارها
-       ================================================================ */
+    /* ---------- نمونه‌کارها ---------- */
     const sampleGrid = document.getElementById("sampleGrid");
     const emptySamples = document.getElementById("emptySamples");
     for (let i = 1; i <= 3; i++) {
@@ -1074,11 +924,7 @@
       });
     }
 
-    /* ================================================================
-       ۸) سیستم کد تخفیف ۹۰ روزه
-       ================================================================ */
-
-    /* ---------- ابزارها ---------- */
+    /* ---------- بررسی کد تخفیف ---------- */
     function formatDate(ts) {
       if (!ts) return "—";
       try {
@@ -1088,68 +934,13 @@
         });
       } catch { return "—"; }
     }
-    function generateCode() {
-      const prefix = String(SETTINGS.brandName || "GIFT")
-        .replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 4) || "GIFT";
-      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-      const part = n => Array.from({ length: n }, () =>
-        chars[Math.floor(Math.random() * chars.length)]).join("");
-      return `${prefix}-${part(4)}-${part(4)}`;
+    function escapeHtml(s) {
+      return String(s ?? "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;",
+        '"': "&quot;", "'": "&#39;"
+      }[c]));
     }
 
-    /* ---------- حالت دمو (localStorage) ---------- */
-    const LS_KEY = "gift_codes_v1";
-    function lsAll() {
-      try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }
-      catch { return []; }
-    }
-    function lsSave(arr) {
-      try { localStorage.setItem(LS_KEY, JSON.stringify(arr)); } catch {}
-    }
-    function localRegister(name, phone) {
-      const all = lsAll();
-      let code;
-      let tries = 0;
-      do { code = generateCode(); tries++; }
-      while (tries < 10 && all.some(x => x.code === code));
-      const entry = {
-        code, name, phone,
-        issuedAt: Date.now(),
-        usedAt: null
-      };
-      all.push(entry);
-      lsSave(all);
-      return {
-        status: "ok",
-        code: entry.code,
-        name: entry.name,
-        issuedAt: entry.issuedAt
-      };
-    }
-    function localVerify(rawCode) {
-      const code = String(rawCode || "").trim().toUpperCase();
-      const all = lsAll();
-      const entry = all.find(x => x.code === code);
-      if (!entry) return { status: "not_found" };
-      if (entry.usedAt) return { status: "used", name: entry.name, usedAt: entry.usedAt };
-      const ageMs = Date.now() - entry.issuedAt;
-      const maxMs = SETTINGS.discountDays * 24 * 60 * 60 * 1000;
-      if (ageMs > maxMs) return { status: "expired", name: entry.name, issuedAt: entry.issuedAt };
-      // علامت‌گذاری به‌عنوان استفاده‌شده
-      entry.usedAt = Date.now();
-      lsSave(all);
-      return {
-        status: "valid",
-        code: entry.code,
-        name: entry.name,
-        phone: entry.phone,
-        issuedAt: entry.issuedAt,
-        usedAt: entry.usedAt,
-        daysLeft: Math.max(0, Math.ceil((maxMs - ageMs) / 86400000))
-      };
-    }
-
-    /* ---------- حالت واقعی (Google Apps Script) ---------- */
     async function apiCall(params) {
       const url = SETTINGS.discountBackendUrl + "?" + new URLSearchParams(params).toString();
       const res = await fetch(url, { method: "GET", redirect: "follow" });
@@ -1157,71 +948,6 @@
       return res.json();
     }
 
-    /* ---------- توابع عمومی ---------- */
-    async function registerDiscount(name, phone) {
-      if (useLocalDemo) return localRegister(name, phone);
-      return apiCall({ action: "register", name, phone });
-    }
-    async function verifyDiscount(code) {
-      if (useLocalDemo) return localVerify(code);
-      return apiCall({ action: "verify", code });
-    }
-
-    /* ---------- فرم ثبت‌نام ---------- */
-    const registerForm = document.getElementById("registerForm");
-    const registerSubmit = document.getElementById("registerSubmit");
-    const registerResult = document.getElementById("registerResult");
-    const regCodeValue = document.getElementById("regCodeValue");
-    const regExpires = document.getElementById("regExpires");
-    const regCopyBtn = document.getElementById("regCopyBtn");
-
-    registerForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const name = document.getElementById("regName").value.trim();
-      const phone = document.getElementById("regPhone").value.trim();
-      if (name.length < 2) return notify("نام را کامل وارد کنید.");
-      if (phone.replace(/\D/g, "").length < 7) return notify("شماره موبایل معتبر وارد کنید.");
-
-      registerSubmit.disabled = true;
-      registerSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> در حال ثبت...';
-
-      try {
-        const data = await registerDiscount(name, phone);
-        if (!data || data.status !== "ok") {
-          throw new Error((data && data.message) || "خطا در ثبت");
-        }
-        regCodeValue.textContent = data.code;
-        const expiresAt = (data.issuedAt || Date.now()) + SETTINGS.discountDays * 86400000;
-        regExpires.textContent = formatDate(expiresAt);
-        registerResult.hidden = false;
-        registerForm.style.display = "none";
-        notify("کد تخفیف شما صادر شد ✅");
-      } catch (err) {
-        notify("ثبت انجام نشد. لطفاً دوباره تلاش کنید.");
-      } finally {
-        registerSubmit.disabled = false;
-        registerSubmit.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> دریافت کد تخفیف';
-      }
-    });
-
-    regCopyBtn.addEventListener("click", async () => {
-      const code = regCodeValue.textContent;
-      try {
-        await navigator.clipboard.writeText(code);
-        notify("کد کپی شد ✅");
-      } catch {
-        // فالبک برای مرورگرهای قدیمی
-        const ta = document.createElement("textarea");
-        ta.value = code;
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand("copy"); notify("کد کپی شد ✅"); }
-        catch { notify("کپی نشد؛ دستی انتخاب کنید."); }
-        ta.remove();
-      }
-    });
-
-    /* ---------- فرم بررسی ---------- */
     const verifyForm = document.getElementById("verifyForm");
     const verifySubmit = document.getElementById("verifySubmit");
     const verifyResult = document.getElementById("verifyResult");
@@ -1272,9 +998,14 @@
         verifyResult.innerHTML = `
           <div class="result-icon">✕</div>
           <h4 class="result-title">کد پیدا نشد</h4>
-          <p class="result-text">
-            کد وارد شده در سیستم موجود نیست. لطفاً دقت کنید و دوباره امتحان کنید.
-          </p>
+          <p class="result-text">کد وارد شده در سیستم موجود نیست. لطفاً دقت کنید و دوباره امتحان کنید.</p>
+        `;
+      } else if (data.status === "disabled") {
+        verifyResult.classList.add("error");
+        verifyResult.innerHTML = `
+          <div class="result-icon">✕</div>
+          <h4 class="result-title">این کد غیرفعال شده</h4>
+          <p class="result-text">این کد توسط فروشنده غیرفعال شده است.</p>
         `;
       } else {
         verifyResult.classList.add("error");
@@ -1284,13 +1015,6 @@
           <p class="result-text">${escapeHtml(data.message || "لطفاً بعداً دوباره تلاش کنید.")}</p>
         `;
       }
-    }
-
-    function escapeHtml(s) {
-      return String(s ?? "").replace(/[&<>"']/g, c => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;",
-        '"': "&quot;", "'": "&#39;"
-      }[c]));
     }
 
     verifyForm.addEventListener("submit", async (e) => {
@@ -1303,31 +1027,15 @@
       verifyResult.hidden = true;
 
       try {
-        const data = await verifyDiscount(code);
+        const data = await apiCall({ action: "verify", code });
         renderVerifyResult(data || { status: "error" });
-      } catch (err) {
+      } catch {
         renderVerifyResult({ status: "error", message: "اتصال به سرور برقرار نشد." });
       } finally {
         verifySubmit.disabled = false;
         verifySubmit.innerHTML = '<i class="fa-solid fa-circle-check"></i> بررسی اعتبار کد';
       }
     });
-
-    /* ---------- هندلینگ مودال‌های تخفیف ---------- */
-    // وقتی کاربر دوباره مودال ثبت‌نام رو باز می‌کنه، اگر قبلاً ثبت کرده
-    // نتیجه‌ش رو نشون بدیم.
-    document.getElementById("registerModal").addEventListener("close", () => {
-      // چیزی رو پاک نمی‌کنیم تا کاربر بتونه کدش رو ببینه
-    });
-
-    // پیام هشدار حالت دمو (فقط یک‌بار در کنسول)
-    if (useLocalDemo) {
-      console.info(
-        "%c[GIFT] سیستم تخفیف در حالت دمو (localStorage) کار می‌کند. " +
-        "برای اتصال به Google Sheets، مقدار discountBackendUrl را در SETTINGS پر کنید.",
-        "color:#9b68ff"
-      );
-    }
   </script>
 </body>
 </html>
