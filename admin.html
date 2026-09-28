@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0715">
+<title>پنل مدیریت کد تخفیف</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0918; --card:#17142a; --stroke:rgba(255,255,255,.12);
+    --green:#79ffc4; --purple:#9b68ff; --orange:#ff914c;
+    --red:#ff7a7a; --yellow:#ffdc81;
+    --text:#f7f3ff; --muted:#aaa4c2;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh;
+    background:radial-gradient(circle at 20% 0%,#1a1338,#0b0918 60%);
+    color:var(--text); font-family:Vazirmatn,system-ui,sans-serif;
+    padding:env(safe-area-inset-top) 16px calc(24px + env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:640px;margin:0 auto}
+  h1{font-size:19px;margin:22px 0 4px;font-weight:800}
+  .sub{color:var(--muted);font-size:12px;margin:0 0 18px;line-height:1.8}
+
+  .card{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin-bottom:12px}
+  label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:6px;font-weight:500}
+  input{
+    width:100%;padding:12px 13px;border-radius:11px;
+    border:1px solid var(--stroke);background:rgba(255,255,255,.05);
+    color:var(--text);font-family:inherit;font-size:14px;
+  }
+  input:focus{outline:none;border-color:rgba(121,255,196,.5);background:rgba(121,255,196,.04)}
+
+  .btn{
+    width:100%;padding:13px;margin-top:10px;border-radius:12px;
+    border:1px solid rgba(155,104,255,.55);
+    background:linear-gradient(135deg,rgba(155,104,255,.35),rgba(155,104,255,.18));
+    color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;
+  }
+  .btn:active{transform:scale(.98)}
+  .btn:disabled{opacity:.55;cursor:wait}
+  .btn.green{
+    border-color:rgba(121,255,196,.55);
+    background:linear-gradient(135deg,rgba(121,255,196,.3),rgba(121,255,196,.14));
+    color:#e6fff1;
+  }
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+  .stat{
+    padding:11px 6px;border-radius:12px;
+    background:rgba(255,255,255,.04);border:1px solid var(--stroke);text-align:center;
+  }
+  .stat .n{font-size:17px;font-weight:800;display:block;line-height:1.2}
+  .stat .l{font-size:10px;color:var(--muted);margin-top:3px;display:block}
+  .stat.a .n{color:var(--green)}
+  .stat.u .n{color:var(--red)}
+  .stat.e .n{color:var(--yellow)}
+  .stat.d .n{color:#c5a6ff}
+
+  .filter-row{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;margin-top:11px}
+  .filter-row::-webkit-scrollbar{display:none}
+  .chip{
+    padding:8px 13px;border-radius:999px;border:1px solid var(--stroke);
+    background:rgba(255,255,255,.05);color:var(--muted);
+    font-size:11.5px;cursor:pointer;font-family:inherit;
+    white-space:nowrap;flex-shrink:0;
+  }
+  .chip.active{border-color:rgba(121,255,196,.6);background:rgba(121,255,196,.14);color:var(--green)}
+
+  .item{border:1px solid var(--stroke);border-radius:13px;padding:12px 13px;margin-bottom:8px;background:rgba(255,255,255,.03)}
+  .item .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+  .item .code{
+    font-family:ui-monospace,Menlo,Consolas,monospace;
+    direction:ltr;font-weight:800;letter-spacing:1px;font-size:13px;
+    word-break:break-all;
+  }
+  .badge{padding:4px 9px;border-radius:999px;font-size:10px;font-weight:700;flex-shrink:0;white-space:nowrap}
+  .badge.active{background:rgba(121,255,196,.15);color:var(--green);border:1px solid rgba(121,255,196,.4)}
+  .badge.used{background:rgba(255,120,120,.13);color:var(--red);border:1px solid rgba(255,120,120,.4)}
+  .badge.expired{background:rgba(255,220,129,.13);color:var(--yellow);border:1px solid rgba(255,220,129,.4)}
+  .badge.disabled{background:rgba(155,104,255,.16);color:#c5a6ff;border:1px solid rgba(155,104,255,.5)}
+
+  .item .meta{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;font-size:11.5px;color:var(--muted)}
+  .item .meta b{color:var(--text);font-weight:600}
+
+  .item .actions{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+  .item .actions button{
+    flex:1;min-width:70px;padding:9px 6px;border-radius:10px;
+    border:1px solid var(--stroke);background:rgba(255,255,255,.05);color:var(--text);
+    font-family:inherit;font-size:11px;cursor:pointer;
+  }
+  .item .actions button:active{transform:scale(.97)}
+  .item .actions button.copy{border-color:rgba(121,255,196,.4);color:var(--green)}
+  .item .actions button.mark{border-color:rgba(255,220,129,.4);color:var(--yellow)}
+  .item .actions button.disable{border-color:rgba(155,104,255,.4);color:#c5a6ff}
+  .item .actions button.enable{border-color:rgba(121,255,196,.4);color:var(--green)}
+  .item .actions button.danger{border-color:rgba(255,120,120,.4);color:#ffb3b3}
+
+  .empty{text-align:center;color:var(--muted);padding:36px 20px;font-size:13px}
+  .loading{text-align:center;padding:30px;color:var(--muted);font-size:13px}
+
+  .toast{
+    position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));
+    left:50%;transform:translateX(-50%);
+    padding:11px 17px;background:#242037;border:1px solid var(--stroke);
+    border-radius:12px;font-size:12.5px;max-width:calc(100% - 32px);
+    text-align:center;z-index:100;box-shadow:0 14px 40px rgba(0,0,0,.5);
+    animation:pop .2s ease-out;
+  }
+  .toast[hidden]{display:none}
+  @keyframes pop{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+
+  .hint{font-size:11.5px;color:var(--muted);line-height:1.8;margin-top:10px}
+  .logout{
+    display:block;text-align:center;margin-top:14px;color:var(--muted);
+    font-size:11.5px;cursor:pointer;background:none;border:0;
+    font-family:inherit;width:100%;padding:10px;
+  }
+  .logout:hover{color:var(--orange)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>🎛️ پنل مدیریت کد تخفیف</h1>
+  <p class="sub">کد اضافه کن، حذف کن، غیرفعال کن، یا «استفاده‌شده» علامت بزن.</p>
+
+  <div class="card" id="connectCard">
+    <label for="backendUrl">آدرس Apps Script</label>
+    <input id="backendUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec">
+    <label for="password" style="margin-top:12px">رمز عبور ادمین</label>
+    <input id="password" type="password" placeholder="رمز را وارد کنید">
+    <button class="btn" id="connectBtn">اتصال به پنل</button>
+    <p class="hint">این اطلاعات فقط در همین مرورگر ذخیره می‌شود.</p>
+  </div>
+
+  <div id="panel" hidden>
+
+    <div class="stats">
+      <div class="stat a"><span class="n" id="stActive">—</span><span class="l">معتبر</span></div>
+      <div class="stat u"><span class="n" id="stUsed">—</span><span class="l">استفاده</span></div>
+      <div class="stat e"><span class="n" id="stExpired">—</span><span class="l">منقضی</span></div>
+      <div class="stat d"><span class="n" id="stDisabled">—</span><span class="l">غیرفعال</span></div>
+    </div>
+
+    <div class="card">
+      <label>➕ ساخت کد جدید</label>
+      <input id="newName" type="text" placeholder="نام و فامیل مشتری">
+      <input id="newPhone" type="tel" placeholder="شماره موبایل (اختیاری)" style="margin-top:8px">
+      <button class="btn green" id="createBtn">ساخت کد</button>
+    </div>
+
+    <div class="card">
+      <input id="search" type="text" placeholder="🔍 جستجو نام، شماره یا کد...">
+      <div class="filter-row">
+        <button class="chip active" data-filter="all">همه</button>
+        <button class="chip" data-filter="active">معتبر</button>
+        <button class="chip" data-filter="used">استفاده‌شده</button>
+        <button class="chip" data-filter="expired">منقضی</button>
+        <button class="chip" data-filter="disabled">غیرفعال</button>
+      </div>
+    </div>
+
+    <div id="list"></div>
+
+    <button class="logout" id="logoutBtn">🚪 خروج</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+  const DEFAULT_BACKEND = "https://script.google.com/macros/s/AKfycbwW2ED97dKYWAEipd_wYHt8019ZWvvVlb91TdkzS8WZ5ZPbWbmVZs_ex7lfGT7veo0rSg/exec";
+  const LS_URL = 'admin_backend_url';
+  const LS_PASS = 'admin_password';
+
+  let BACKEND  = localStorage.getItem(LS_URL) || DEFAULT_BACKEND;
+  let PASSWORD = localStorage.getItem(LS_PASS) || '';
+  let allItems = [];
+  let filter = 'all';
+  let search = '';
+
+  const $ = id => document.getElementById(id);
+
+  function notify(msg){
+    const t = $('toast');
+    t.textContent = msg;
+    t.hidden = false;
+    clearTimeout(notify._t);
+    notify._t = setTimeout(()=>{ t.hidden = true; }, 3200);
+  }
+  function fmtDate(ts){
+    if(!ts) return '—';
+    try { return new Date(ts).toLocaleDateString('fa-IR',
+      {year:'numeric',month:'2-digit',day:'2-digit'}); }
+    catch { return '—'; }
+  }
+  function escapeHtml(s){
+    return String(s ?? '').replace(/[&<>"']/g, c=>({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  async function api(params){
+    const url = BACKEND + '?' + new URLSearchParams(params).toString();
+    const res = await fetch(url, { method:'GET', redirect:'follow' });
+    if(!res.ok) throw new Error('network');
+    return res.json();
+  }
+
+  $('backendUrl').value = BACKEND;
+  $('password').value   = PASSWORD;
+
+  if(BACKEND && PASSWORD){
+    $('connectCard').hidden = true;
+    $('panel').hidden = false;
+    loadList().catch(()=>{
+      $('connectCard').hidden = false;
+      $('panel').hidden = true;
+    });
+  }
+
+  $('connectBtn').onclick = async () => {
+    const url  = $('backendUrl').value.trim();
+    const pass = $('password').value.trim();
+    if(!url || !pass) return notify('هر دو فیلد را پر کن');
+
+    $('connectBtn').disabled = true;
+    $('connectBtn').textContent = 'در حال اتصال...';
+    BACKEND = url; PASSWORD = pass;
+
+    try{
+      await loadList();
+      localStorage.setItem(LS_URL, url);
+      localStorage.setItem(LS_PASS, pass);
+      $('connectCard').hidden = true;
+      $('panel').hidden = false;
+      notify('متصل شد ✅');
+    }catch(e){
+      notify('اتصال ناموفق: ' + (e.message || 'رمز یا URL را چک کن'));
+    }finally{
+      $('connectBtn').disabled = false;
+      $('connectBtn').textContent = 'اتصال به پنل';
+    }
+  };
+
+  $('logoutBtn').onclick = () => {
+    localStorage.removeItem(LS_PASS);
+    PASSWORD = '';
+    $('password').value = '';
+    $('connectCard').hidden = false;
+    $('panel').hidden = true;
+    notify('خارج شدی');
+  };
+
+  async function loadList(){
+    $('list').innerHTML = '<div class="loading">در حال بارگذاری...</div>';
+    const data = await api({ action:'admin_list', password:PASSWORD });
+    if(!data || data.status !== 'ok'){
+      throw new Error((data && data.message) || 'خطا در دریافت اطلاعات');
+    }
+    allItems = data.items || [];
+    updateStats();
+    renderList();
+  }
+
+  function updateStats(){
+    let a=0,u=0,e=0,d=0;
+    for(const it of allItems){
+      if(it.status==='active') a++;
+      else if(it.status==='used') u++;
+      else if(it.status==='expired') e++;
+      else if(it.status==='disabled') d++;
+    }
+    $('stActive').textContent   = a;
+    $('stUsed').textContent     = u;
+    $('stExpired').textContent  = e;
+    $('stDisabled').textContent = d;
+  }
+
+  function renderList(){
+    const list = $('list');
+    const q = search.trim().toLowerCase();
+
+    const filtered = allItems.filter(it=>{
+      if(filter !== 'all' && it.status !== filter) return false;
+      if(!q) return true;
+      return String(it.code).toLowerCase().includes(q)
+          || String(it.name).toLowerCase().includes(q)
+          || String(it.phone).toLowerCase().includes(q);
+    });
+
+    if(!filtered.length){
+      list.innerHTML = '<div class="empty">چیزی پیدا نشد</div>';
+      return;
+    }
+
+    const labels = { active:'معتبر', used:'استفاده‌شده', expired:'منقضی', disabled:'غیرفعال' };
+
+    list.innerHTML = filtered.map(it => `
+      <div class="item" data-code="${escapeHtml(it.code)}">
+        <div class="top">
+          <span class="code">${escapeHtml(it.code)}</span>
+          <span class="badge ${it.status}">${labels[it.status]}</span>
+        </div>
+        <div class="meta">
+          <div>نام: <b>${escapeHtml(it.name || '—')}</b></div>
+          <div>موبایل: <b dir="ltr">${escapeHtml(it.phone || '—')}</b></div>
+          <div>صدور: <b>${fmtDate(it.issuedAt)}</b></div>
+          <div>${it.status==='used'
+            ? 'استفاده: <b>'+fmtDate(it.usedAt)+'</b>'
+            : it.status==='active'
+              ? 'روز مانده: <b>'+(it.daysLeft ?? '—')+'</b>'
+              : '&nbsp;'}</div>
+        </div>
+        <div class="actions">
+          <button class="copy" data-act="copy">📋 کپی</button>
+          ${it.status==='active' ? '<button class="mark" data-act="mark">✓ استفاده‌شد</button>' : ''}
+          ${it.status==='disabled'
+            ? '<button class="enable" data-act="enable">↺ فعال‌سازی</button>'
+            : '<button class="disable" data-act="disable">⏸ غیرفعال</button>'}
+          <button class="danger" data-act="delete">🗑 حذف</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  $('search').addEventListener('input', e => {
+    search = e.target.value;
+    renderList();
+  });
+
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.onclick = () => {
+      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      filter = chip.dataset.filter;
+      renderList();
+    };
+  });
+
+  $('list').addEventListener('click', async e => {
+    const btn = e.target.closest('button[data-act]');
+    if(!btn) return;
+    const item = btn.closest('.item');
+    const code = item.dataset.code;
+    const act  = btn.dataset.act;
+
+    if(act === 'copy'){
+      try{ await navigator.clipboard.writeText(code); notify('کد کپی شد ✅'); }
+      catch{ notify('کپی نشد؛ دستی انتخاب کن'); }
+      return;
+    }
+
+    const confirmMessages = {
+      mark:    'این کد به‌عنوان «استفاده‌شده» ثبت بشه؟',
+      disable: 'این کد غیرفعال بشه؟ مشتری نمی‌تونه ازش استفاده کنه.',
+      enable:  'این کد دوباره فعال بشه؟',
+      delete:  'این کد کاملاً حذف بشه؟ قابل بازگشت نیست.'
+    };
+    if(confirmMessages[act] && !confirm(confirmMessages[act])) return;
+
+    btn.disabled = true;
+    const orig = btn.innerHTML;
+    btn.textContent = '...';
+
+    const actions = {
+      mark:    'admin_mark_used',
+      disable: 'admin_disable',
+      enable:  'admin_enable',
+      delete:  'admin_delete'
+    };
+
+    try{
+      const data = await api({action: actions[act], password: PASSWORD, code});
+      if(data.status === 'ok'){
+        notify('انجام شد ✅');
+        await loadList();
+      }else{
+        notify('خطا: ' + (data.message || ''));
+        btn.disabled = false;
+        btn.innerHTML = orig;
+      }
+    }catch{
+      notify('ارتباط برقرار نشد');
+      btn.disabled = false;
+      btn.innerHTML = orig;
+    }
+  });
+
+  $('createBtn').onclick = async () => {
+    const name  = $('newName').value.trim();
+    const phone = $('newPhone').value.trim();
+    if(name.length < 2) return notify('نام را کامل وارد کن');
+
+    $('createBtn').disabled = true;
+    $('createBtn').textContent = 'در حال ساخت...';
+
+    try{
+      const data = await api({
+        action:'admin_create', password:PASSWORD, name, phone
+      });
+      if(data.status === 'ok'){
+        notify('کد ساخته شد: ' + data.code);
+        $('newName').value = '';
+        $('newPhone').value = '';
+        await loadList();
+      }else{
+        notify('خطا: ' + (data.message || ''));
+      }
+    }catch{
+      notify('ارتباط برقرار نشد');
+    }finally{
+      $('createBtn').disabled = false;
+      $('createBtn').textContent = 'ساخت کد';
+    }
+  };
+</script>
+</body>
+</html>
